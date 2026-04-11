@@ -540,3 +540,30 @@ def explore_colors(img_bgr, roi_mask, n_samples=10000):
 ```
 
 This exploration step is critical for building accurate zone profiles. Run it before defining HSV thresholds, and show the results to the user for confirmation.
+
+---
+
+## Overlap Removal
+
+If zones should be mutually exclusive, remove overlaps using priority-based subtraction:
+
+```python
+from shapely.validation import make_valid
+from shapely.ops import unary_union
+
+# User defines priority (1 = highest = keeps shape; higher numbers lose contested pixels)
+PRIORITY = {"zone_a": 1, "zone_b": 2, "zone_c": 3}
+
+dissolved = gdf_geo.dissolve(by="zone").reset_index()
+dissolved["priority"] = dissolved["zone"].map(PRIORITY)
+dissolved = dissolved.sort_values("priority")
+
+claimed = None
+for idx, row in dissolved.iterrows():
+    geom = make_valid(row.geometry)
+    if claimed is not None:
+        geom = geom.difference(claimed)
+        geom = make_valid(geom)
+    dissolved.at[idx, "geometry"] = geom
+    claimed = geom if claimed is None else unary_union([claimed, geom])
+```

@@ -8,6 +8,8 @@ A collection of reusable skills for [Claude Code](https://docs.anthropic.com/en/
 |-------|-------------|
 | [map-georeferencing](./map-georeferencing/) | Extract geospatial vector data from color-coded map images (PDF, PNG, TIFF, GeoTIFF). Full pipeline: preprocessing, color segmentation, polygonization, georeferencing, and export. |
 | [pandas-styler-tables](./pandas-styler-tables/) | Style and format pandas DataFrames in Jupyter notebooks using `df.style` — heatmaps, currency/percent formatting, diverging palettes for deltas, conditional highlighting, polished tables for handoff. Discovers project- or user-level style specs before falling back to defaults. |
+| [developing-with-streamlit](./developing-with-streamlit/) | Streamlit (>=1.57) app development — creating, editing, debugging, beautifying, styling, theming, optimizing, deploying. Covers custom components and `st.components.v2`. Discovers and loads version-matched reference docs from the user's installed Streamlit package. |
+| [jupyter-plotly-slides](./jupyter-plotly-slides/) | Build interactive slide decks from Jupyter notebooks with live Plotly figures via nbconvert + reveal.js — charts stay interactive (hover, zoom, pan) in the deck. Bundles a slide-tagger, a build wrapper, and reference docs on slide anatomy and Plotly-in-reveal sizing. |
 
 ## Installation
 
@@ -22,8 +24,10 @@ Add this repo as a marketplace, then install the plugins you want:
 # Or, from GitHub once pushed:
 # /plugin marketplace add follperson/agent-skills
 
-# Install one or both plugins
+# Install the plugins you want — e.g.
 /plugin install pandas-styler-tables@agent-skills
+/plugin install jupyter-plotly-slides@agent-skills
+/plugin install developing-with-streamlit@agent-skills
 /plugin install map-georeferencing@agent-skills
 ```
 

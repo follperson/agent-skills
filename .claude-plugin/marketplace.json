@@ -1,0 +1,22 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "agent-skills",
+  "description": "Personal collection of reusable Claude Code skills — data science workflows, Jupyter, geospatial, table styling.",
+  "owner": {
+    "name": "Andrew Follmann Wyld (@follperson)"
+  },
+  "plugins": [
+    {
+      "name": "map-georeferencing",
+      "source": "./map-georeferencing",
+      "description": "Extract geospatial vector data from color-coded map images (PDF, PNG, TIFF, GeoTIFF). Full pipeline: preprocessing, color segmentation, polygonization, georeferencing, and export to GeoJSON/shapefile.",
+      "version": "0.1.0"
+    },
+    {
+      "name": "pandas-styler-tables",
+      "source": "./pandas-styler-tables",
+      "description": "Style and format pandas DataFrames in Jupyter notebooks using df.style — heatmaps, currency/percent formatting, diverging palettes for deltas, conditional highlighting, polished tables for handoff. Discovers project- or user-level style specs before falling back to defaults.",
+      "version": "0.1.0"
+    }
+  ]
+}

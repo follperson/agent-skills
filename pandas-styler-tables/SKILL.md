@@ -95,12 +95,14 @@ If discovery returned a spec, apply its values. If not, use these generic defaul
 ### 5. Render and verify
 
 - Always **render the cell** after styling — visually confirm before declaring done.
+- **Agent / Jupyter MCP workflows**: `mcp__jupyter__execute_cell` returns the Styler repr (`<pandas.io.formats.style.Styler at 0x...>`) without the rendered HTML payload. To verify visually without a live browser, dump the styler to a file and Read it: `styler.to_html('/tmp/check.html', doctype_html=True)`. (A browser attached to the same Jupyter session still sees the rendered table either way.)
 - For PDF-bound tables, also `jupyter nbconvert --to html notebook.ipynb` (HTML only, no `--execute --inplace`) and open the resulting `.html` to confirm CSS survives the export.
 - For tables wider than ~8 columns, scan on a smaller viewport; `set_table_styles` overflow behavior differs at narrow widths.
+- **Guard empty DataFrames before styling** — `df.style` on an empty DataFrame renders a `<table>` with no rows and no error, easy to miss. Wrap with `if df.empty: print('No data') ; else: display(df.style. …)`.
 
 ## Cross-cutting rules
 
-- **Escape `$` in markdown cells and any HTML output.** Bare `$NN` triggers MathJax math mode in the rendered notebook and breaks LaTeX PDF export. Write `\$105`, not `$105`. Code fences and inline `` `code` `` spans are safe. (If the active project's `CLAUDE.md` already documents this rule, link to it rather than restating.)
+- **Escape `$` only in MathJax-rendered contexts.** Bare `$NN` triggers MathJax math mode in the live notebook and in `nbconvert --to html` output (the default template loads MathJax). Write `\$105` there. Do *not* escape in plain `to_html(...)` files opened directly in a browser — there's no MathJax, and `\$` renders as a literal backslash. Code fences and inline `` `code` `` spans are always safe. See `references/export-and-gotchas.md` §1 for full context table. (If the active project's `CLAUDE.md` already documents this rule, link to it rather than restating.)
 - **`Styler` does not mutate the underlying DataFrame.** `df.style.format(...)` returns a new `Styler` object; `df` is unchanged. Don't rely on this for downstream code paths.
 - **Use `.map()` for cell-level CSS in pandas ≥ 2.1.** `.applymap()` is deprecated. For axis-aware logic, `.apply(axis=0|1)` is still correct.
 - **Captions render below the table by default.** Flip with `set_table_styles([{'selector': 'caption', 'props': [('caption-side', 'top')]}])`.

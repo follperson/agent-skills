@@ -59,12 +59,20 @@ Two important options:
 ```python
 df.style.to_html(
     'out.html',
-    inline_css=True,        # inlines styles into each <td>; survives email clients
+    inline_css=True,        # see caveat below — does NOT produce true inline styles
     doctype_html=True,      # produces a complete <html> document, not a fragment
 )
 ```
 
-`inline_css=True` is the move for email — most clients strip `<style>` blocks but keep `style=` attributes on tags. Without it, email recipients see an unstyled table.
+**Caveat on `inline_css=True`** (confirmed pandas 2.1.4): the name is misleading. It does not flatten styles into `<td style="...">` attributes — it still emits a `<style>` block, just using `#id` selectors instead of class selectors so the rules don't collide if multiple Styler outputs share a page. The CSS still lives in `<head>`. For true email-safety (clients that strip `<style>` blocks), run the output through a real CSS inliner such as `premailer`:
+
+```python
+from premailer import transform   # pip install premailer
+html = df.style.to_html(doctype_html=True)
+email_safe = transform(html)      # flattens styles into style="..." attributes
+```
+
+Without that step, email clients that strip `<style>` blocks will render the table unstyled regardless of the `inline_css` flag.
 
 ### Excel via `to_excel()`
 
@@ -83,15 +91,21 @@ For Excel-first reporting, consider building with openpyxl directly or `xlsxwrit
 
 ## Recurring gotchas
 
-### 1. `$` triggers MathJax — escape it
+### 1. `$` triggers MathJax — escape it (context-dependent)
 
-Bare `$NN` in a markdown cell or HTML output puts the renderer into LaTeX math mode. Numbers come out italicized, spacing is wrong, and PDF export breaks. Write `\$105`, not `$105`. Applies to:
+Bare `$NN` puts MathJax into LaTeX math mode when MathJax is loaded — which happens in the Jupyter notebook view and in `nbconvert --to html` output (the template ships MathJax). Numbers come out italicized, spacing is wrong, LaTeX PDF export breaks.
 
-- Markdown cells.
-- `display(HTML(...))` strings.
-- `set_caption('Cost: \$1,200 per piece')`.
+Escape with `\$` when the output will be rendered through MathJax:
+- Markdown cells in a `.ipynb`.
+- `display(HTML(...))` strings inside a notebook.
+- `set_caption('Cost: \$1,200 per piece')` — appears in the notebook's rendered HTML, so MathJax sees it.
+- The result of `nbconvert --to html` (the default template includes MathJax).
 
-Inline `` `code` `` spans and triple-backtick code fences are exempt — MathJax skips them.
+**Do NOT escape** when the output is plain HTML with no MathJax loader:
+- `to_html('out.html')` — opens directly in a browser, no MathJax, the backslash becomes visible text (`\$0.001` instead of `$0.001`).
+- Emailed HTML or any standalone document not running MathJax.
+
+Inline `` `code` `` spans and triple-backtick code fences are exempt — MathJax skips them inside the notebook view too.
 
 (If the active project's `CLAUDE.md` already documents this rule, link to that file rather than restating it here.)
 

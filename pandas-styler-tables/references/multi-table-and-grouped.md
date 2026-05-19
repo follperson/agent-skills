@@ -81,22 +81,30 @@ def style_table_generic(
     seq_cmap='Blues',
     format_dict=None,
     table_css=None,
+    asc_pin=None,         # (vmin, vmax) shared across multiple tables — see §1
+    desc_pin=None,        # (vmin, vmax) for the descending columns
 ):
     """Apply a consistent style across mixed-direction columns.
 
     asc_cols and desc_cols are lists of column names. Columns not in either list
     are left ungradiented (useful for keys, labels, IDs).
+
+    asc_pin / desc_pin are optional (vmin, vmax) tuples — pass them when this
+    helper is being called once per sub-table in a multi-table report and the
+    fills need to be comparable across tables (see §1).
     """
     asc_cols = asc_cols or []
     desc_cols = desc_cols or []
+    asc_kw  = dict(zip(('vmin', 'vmax'), asc_pin))  if asc_pin  else {}
+    desc_kw = dict(zip(('vmin', 'vmax'), desc_pin)) if desc_pin else {}
 
     if format_dict:
         styler = styler.format(format_dict)
 
     if asc_cols:
-        styler = styler.background_gradient(cmap=seq_cmap, subset=asc_cols)
+        styler = styler.background_gradient(cmap=seq_cmap, subset=asc_cols, **asc_kw)
     if desc_cols:
-        styler = styler.background_gradient(cmap=f'{seq_cmap}_r', subset=desc_cols)
+        styler = styler.background_gradient(cmap=f'{seq_cmap}_r', subset=desc_cols, **desc_kw)
 
     if table_css:
         styler = styler.set_table_styles(table_css)
@@ -118,6 +126,27 @@ df.style.pipe(
         'churn':   '{:.2%}',
     },
 )
+```
+
+Composed with shared scales across sub-tables (the §1 pattern, in one chain):
+
+```python
+all_rev  = pd.concat([d['revenue'] for d in subsets.values()])
+all_cost = pd.concat([d['cost']    for d in subsets.values()])
+rev_pin  = tuple(all_rev .quantile([0.03, 0.97]).tolist())
+cost_pin = tuple(all_cost.quantile([0.03, 0.97]).tolist())
+
+for name, sub in subsets.items():
+    display(
+        sub.style.pipe(
+            style_table_generic,
+            asc_cols=['revenue'], desc_cols=['cost'],
+            format_dict={'revenue': '${:,.0f}', 'cost': '${:,.0f}'},
+            asc_pin=rev_pin, desc_pin=cost_pin,
+        )
+        .hide(axis='index')
+        .set_caption(f'Region: {name}')
+    )
 ```
 
 ## 4. Locking in project defaults with `partial`

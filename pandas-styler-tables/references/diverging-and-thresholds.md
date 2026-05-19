@@ -29,9 +29,9 @@ Why pin `vmin`/`vmax` instead of letting pandas auto-scale?
 - Symmetric pins make the visual midpoint align with `0`, which is what readers expect.
 - For multi-table comparisons (see `multi-table-and-grouped.md`), shared `vmin`/`vmax` across tables also lets the eye compare magnitudes across them.
 
-Common cmap choices:
+Common cmap choices (all are direction-aware, not value-aware — colour reads as "up/down," not "good/bad"):
 - `RdBu_r` — red→white→blue (negative→zero→positive). Good general default.
-- `coolwarm` — blue→white→red. Reverses the convention; use when you want "warm = good."
+- `coolwarm` — blue→white→red (cool=down, warm=up). Same direction encoding as `RdBu_r`; differs only in saturation and end-stop hue. Whether warm reads as "good" depends entirely on the metric — use it for direction, not value. For analyses that emphasise value-neutrality, this cmap is fine but pair it with a caption that names the direction (e.g., "period-over-period change").
 - `PiYG` — pink→white→green. Useful when red/blue is ambiguous in context.
 - `BrBG` — brown→white→green-blue. Good for environment/sustainability framings.
 

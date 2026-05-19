@@ -1,6 +1,6 @@
 {
   "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
-  "name": "agent-skills",
+  "name": "follperson-agent-skills",
   "description": "Personal collection of reusable Claude Code skills — data science workflows, Jupyter, geospatial, table styling.",
   "owner": {
     "name": "Andrew Follmann Wyld (@follperson)"

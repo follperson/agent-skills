@@ -19,12 +19,6 @@
       "version": "0.1.0"
     },
     {
-      "name": "developing-with-streamlit",
-      "source": "./developing-with-streamlit",
-      "description": "Streamlit app development — creating, editing, debugging, beautifying, styling, theming, optimizing, or deploying Streamlit apps. Also custom components, st.components.v2, and HTML/JS/CSS work. Discovers and loads version-matched reference docs from the user's installed Streamlit (>=1.57).",
-      "version": "0.1.0"
-    },
-    {
       "name": "jupyter-plotly-slides",
       "source": "./jupyter-plotly-slides",
       "description": "Build interactive slide decks from Jupyter notebooks with live Plotly figures. Uses nbconvert + reveal.js so charts stay interactive (hover, zoom, pan) in the deck. Bundles a slide-tagger (sets cell slideshow metadata), a build wrapper, and reference docs on slide anatomy and Plotly-in-reveal sizing/renderer choices.",

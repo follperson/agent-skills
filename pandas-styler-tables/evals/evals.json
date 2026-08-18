@@ -1,0 +1,52 @@
+{
+  "skill_name": "pandas-styler-tables",
+  "notes": "Baseline is NO skill. Each run loads the CSV, produces its best table for the stated goal, and saves the rendered result as a self-contained .html file. grade.py parses that HTML — the pass/fail is objective (HTML properties), not an LLM opinion.",
+  "evals": [
+    {
+      "id": "eval_0_revenue",
+      "data": "data/eval_0_revenue.csv",
+      "prompt": "I'm presenting this revenue-by-segment table to the exec team tomorrow morning. Load it from CSV and make it presentation-ready in the notebook so the numbers are instantly readable.",
+      "expected_output": "A styled table: revenue as $ with thousands separators, customer counts with commas, ARPU rounded (no long decimals), a caption, and magnitude legible at a glance.",
+      "assertions": [
+        "Rendered with df.style (Styler), not plain text or bare df.to_html",
+        "Revenue shown as currency ($, thousands separators or M/K/B suffix)",
+        "Large integer counts use thousands separators (e.g. 45,231)",
+        "No unformatted raw floats leaked (no 4+ decimal places)",
+        "Has a descriptive caption / title"
+      ]
+    },
+    {
+      "id": "eval_1_yoy",
+      "data": "data/eval_1_yoy.csv",
+      "prompt": "This table has year-over-year change (as proportions) by region across a few metrics. Load it and help me eyeball the winners and losers fast — which regions grew and which declined.",
+      "expected_output": "A styled table with a diverging palette centered at zero (positive one hue, negative another, near-zero neutral) and values formatted as percentages.",
+      "assertions": [
+        "Rendered with df.style (Styler), not plain text or bare df.to_html",
+        "Values formatted as percentages (% sign), not raw proportions",
+        "Direction encoded with a diverging palette (+ and - get different hues)",
+        "Diverging palette centered at zero (near-zero cell is the neutral color)"
+      ]
+    },
+    {
+      "id": "eval_2_matrix",
+      "data": "data/eval_2_matrix.csv",
+      "prompt": "Quick exploratory look: load this channel-by-month conversion-rate matrix and tell me which cells jump out. Just poking around, no need to polish.",
+      "expected_output": "A styled heatmap/gradient over the matrix so the hotspot and cold cells are visible at a glance.",
+      "assertions": [
+        "Rendered with df.style (Styler), not plain print/df.to_html",
+        "Heatmap/gradient applied so magnitudes are visible (>=5 distinct cell colors)",
+        "Extreme cells clearly distinguishable (max vs min far apart in color)"
+      ]
+    },
+    {
+      "id": "eval_3_empty",
+      "data": "data/eval_3_empty.csv",
+      "prompt": "Here's this month's table of segments flagged for margin review — style it for the report.",
+      "expected_output": "Recognizes the table is empty (no segments flagged) and says so, rather than shipping a blank headers-only table.",
+      "assertions": [
+        "Handled the empty result gracefully — output says there is no data",
+        "Avoided the silent-empty-table trap (no headers-only table with zero rows and no note)"
+      ]
+    }
+  ]
+}

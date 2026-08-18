@@ -1,0 +1,4 @@
+{
+  "name": "jupyter-plotly-slides",
+  "description": "Build interactive slide decks from Jupyter notebooks with live Plotly figures. Uses nbconvert + reveal.js so charts stay interactive (hover, zoom, pan) in the deck. Bundles a slide-tagger (sets cell slideshow metadata), a build wrapper, and reference docs on slide anatomy and Plotly-in-reveal sizing/renderer choices."
+}

@@ -9,26 +9,22 @@
     {
       "name": "map-georeferencing",
       "source": "./map-georeferencing",
-      "description": "Extract geospatial vector data from color-coded map images (PDF, PNG, TIFF, GeoTIFF). Full pipeline: preprocessing, color segmentation, polygonization, georeferencing, and export to GeoJSON/shapefile.",
-      "version": "0.1.0"
+      "description": "Extract geospatial vector data from color-coded map images (PDF, PNG, TIFF, GeoTIFF). Full pipeline: preprocessing, color segmentation, polygonization, georeferencing, and export to GeoJSON/shapefile."
     },
     {
       "name": "pandas-styler-tables",
       "source": "./pandas-styler-tables",
-      "description": "Style and format pandas DataFrames in Jupyter notebooks using df.style — heatmaps, currency/percent formatting, diverging palettes for deltas, conditional highlighting, polished tables for handoff. Discovers project- or user-level style specs before falling back to defaults.",
-      "version": "0.1.0"
+      "description": "Style and format pandas DataFrames in Jupyter notebooks using df.style — heatmaps, currency/percent formatting, diverging palettes for deltas, conditional highlighting, polished tables for handoff. Discovers project- or user-level style specs before falling back to defaults."
     },
     {
       "name": "jupyter-plotly-slides",
       "source": "./jupyter-plotly-slides",
-      "description": "Build interactive slide decks from Jupyter notebooks with live Plotly figures. Uses nbconvert + reveal.js so charts stay interactive (hover, zoom, pan) in the deck. Bundles a slide-tagger (sets cell slideshow metadata), a build wrapper, and reference docs on slide anatomy and Plotly-in-reveal sizing/renderer choices.",
-      "version": "0.1.0"
+      "description": "Build interactive slide decks from Jupyter notebooks with live Plotly figures. Uses nbconvert + reveal.js so charts stay interactive (hover, zoom, pan) in the deck. Bundles a slide-tagger (sets cell slideshow metadata), a build wrapper, and reference docs on slide anatomy and Plotly-in-reveal sizing/renderer choices."
     },
     {
       "name": "docs-write-clearly",
       "source": "./docs-write-clearly",
-      "description": "Draft, revise, and audit reader-first technical and product documentation — developer docs, procedures, runbooks, release notes, help-center content, READMEs, UI copy. Applies Google Developer Documentation Style Guide principles while preserving source facts, uncertainty, and author voice. Adapted from daniel-p-green/nbj-write-clearly (MIT).",
-      "version": "0.1.0"
+      "description": "Draft, revise, and audit reader-first technical and product documentation — developer docs, procedures, runbooks, release notes, help-center content, READMEs, UI copy. Applies Google Developer Documentation Style Guide principles while preserving source facts, uncertainty, and author voice. Adapted from daniel-p-green/nbj-write-clearly (MIT)."
     }
   ]
 }

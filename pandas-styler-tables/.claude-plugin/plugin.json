@@ -1,0 +1,4 @@
+{
+  "name": "pandas-styler-tables",
+  "description": "Style and format pandas DataFrames in Jupyter notebooks using df.style — heatmaps, currency/percent formatting, diverging palettes for deltas, conditional highlighting, polished tables for handoff. Discovers project- or user-level style specs before falling back to defaults."
+}

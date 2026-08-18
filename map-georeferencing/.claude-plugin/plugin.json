@@ -1,0 +1,4 @@
+{
+  "name": "map-georeferencing",
+  "description": "Extract geospatial vector data from color-coded map images (PDF, PNG, TIFF, GeoTIFF). Full pipeline: preprocessing, color segmentation, polygonization, georeferencing, and export to GeoJSON/shapefile."
+}

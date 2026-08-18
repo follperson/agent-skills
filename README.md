@@ -71,12 +71,16 @@ agent-skills/
 ├── .claude-plugin/
 │   └── marketplace.json          # plugin manifest — defines what's installable
 ├── <skill-name>/
+│   ├── .claude-plugin/
+│   │   └── plugin.json           # name + description — sets the skill's namespace
 │   ├── SKILL.md                  # or skill.md — frontmatter + workflow
 │   └── references/               # optional supporting docs the skill routes to
 └── README.md
 ```
 
 `marketplace.json` lists each top-level skill directory as its own plugin. To add a new skill: create the directory, add its entry to `marketplace.json`, and update the table above.
+
+Each skill also needs its own `.claude-plugin/plugin.json` declaring a `name`. Claude Code reads that name to namespace the skill's invocation (`docs-write-clearly:...`). Without it, the loader falls back to whatever it can derive from the install path — these skills were previously invoked as `0.1.0:...`, the marketplace version string. No `version` field is used anywhere in this repo; installs are tracked by git commit SHA.
 
 ## Skill Format
 
@@ -103,9 +107,10 @@ To add a new skill:
 
 1. Create a directory with the skill name (kebab-case)
 2. Add `SKILL.md` (or `skill.md`) with YAML frontmatter (`name`, `description`)
-3. Add supporting reference files under `references/`
-4. Add a `plugins[]` entry in `.claude-plugin/marketplace.json`
-5. Update this README's skill table
+3. Add `.claude-plugin/plugin.json` with a matching `name` and `description`
+4. Add supporting reference files under `references/`
+5. Add a `plugins[]` entry in `.claude-plugin/marketplace.json`
+6. Update this README's skill table
 
 To adapt a skill from another repo: copy its skill directory in, conform it to the conventions
 above (kebab-case directory name, `SKILL.md` frontmatter, supporting docs under `references/`),

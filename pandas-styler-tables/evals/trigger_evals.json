@@ -1,0 +1,23 @@
+[
+  {"query": "i've got a dataframe of monthly revenue by region in my notebook and it looks like a wall of raw numbers — can you make it actually readable, big numbers as dollars and some shading so the high months pop", "should_trigger": true},
+  {"query": "df_margins has a yoy_change column with positives and negatives, i want a red/blue heatmap centered at zero so i can see winners vs losers at a glance in jupyter", "should_trigger": true},
+  {"query": "polish this results table before i screenshot it for the deck — needs a title, percent formatting, and the columns renamed to something human", "should_trigger": true},
+  {"query": "can you add a background gradient to the metrics matrix i'm displaying and highlight the max cell in each row", "should_trigger": true},
+  {"query": "make this KPI summary table look nice in the notebook, currency with commas and 2 decimals, and bold the total row", "should_trigger": true},
+  {"query": "the arpu column prints like 388403.2584269663 — format the whole df.style output so nothing has more than 2 decimals and revenue shows a dollar sign", "should_trigger": true},
+  {"query": "conditional formatting on this pandas table please — anything below the 0.85 SLA threshold in red", "should_trigger": true},
+  {"query": "turn df_usage_by_month into a heatmap table i can eyeball for seasonality, nothing fancy just gradient the cells", "should_trigger": true},
+  {"query": "i'm handing this cohort retention table to the VP tomorrow, give it a caption and clean header styling with df.style", "should_trigger": true},
+  {"query": "show divergence between forecast and actual per SKU as a styled table, color each row by how far off it is", "should_trigger": true},
+
+  {"query": "plot a heatmap of the 50x50 feature correlation matrix so i can spot clusters", "should_trigger": false},
+  {"query": "add conditional formatting to my Q4 sales xlsx so cells over target turn green", "should_trigger": false},
+  {"query": "style the dataframe in my streamlit app so negative values show up red", "should_trigger": false},
+  {"query": "i need an interactive table on the dashboard where users can sort and filter the columns themselves", "should_trigger": false},
+  {"query": "format the x-axis of my matplotlib revenue chart to show dollars with thousands commas", "should_trigger": false},
+  {"query": "generate a publication-ready table with footnotes and a spanner header for the journal submission", "should_trigger": false},
+  {"query": "clean up this messy sales.csv — fix the malformed rows and the misplaced header and save it back out", "should_trigger": false},
+  {"query": "write a SQL query that pivots monthly sales into a wide table by region", "should_trigger": false},
+  {"query": "color-code the status cells in my HTML report template based on each row's state", "should_trigger": false},
+  {"query": "df.head() is showing weird dtypes after the join and a bunch of NaNs, help me debug why", "should_trigger": false}
+]

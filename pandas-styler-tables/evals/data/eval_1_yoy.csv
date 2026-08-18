@@ -1,0 +1,6 @@
+region,rev_growth,margin_change,churn_change
+Northeast,0.083,-0.015,0.012
+Midwest,-0.052,0.032,-0.007
+South,0.211,0.058,-0.034
+West,-0.128,-0.091,0.045
+Mid-Atlantic,0.004,0.001,-0.002
